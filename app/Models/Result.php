@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class Result extends Model
 {
     use HasFactory;
 
@@ -17,6 +17,7 @@ class Member extends Model
      * @var array
      */
     protected array $fillable = [
-        'email'
+        'member_id',
+        'milliseconds'
     ];
 }
