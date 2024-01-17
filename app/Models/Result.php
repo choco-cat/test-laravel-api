@@ -69,6 +69,7 @@ class Result extends Model
     {
         return self::with('member')
             ->select('member_id', DB::raw('MIN(milliseconds) as milliseconds'))
+            ->whereNotNull('member_id')
             ->groupBy('member_id')
             ->orderBy('milliseconds');
     }
