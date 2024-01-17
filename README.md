@@ -7,10 +7,10 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About
-1. Test Api App
-1. Regenerate documentation:  Run `php artisan l5-swagger:generate`
+## About Test Api App
 1. Api Documentation - http://YOUR_DOMAIN/api/documentation
+1. Regenerate documentation:  Run `php artisan l5-swagger:generate`
+1. Run tests: `php artisan test`
 
 ## Installation
 0. Remember: If you want to do something, but You don't know how can you do it, please ask your colleagues.
