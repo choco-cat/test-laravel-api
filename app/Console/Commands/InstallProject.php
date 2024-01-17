@@ -37,10 +37,10 @@ class InstallProject extends Command
         $this->info('Run seeders');
         Artisan::call('db:seed');
 
+        Artisan::call('storage:link');
+
         $this->info('Generate Api documentation');
         Artisan::call('l5-swagger:generate');
-
-        Artisan::call('storage:link');
 
         $this->alert('Installation complete successful!');
 
