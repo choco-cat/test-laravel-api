@@ -46,7 +46,7 @@ class ResultApiController extends Controller
             $data['self'] = $selfData[0];
         }
 
-        return response()->json($data);
+        return response()->json(['data' => $data]);
     }
 
     /**

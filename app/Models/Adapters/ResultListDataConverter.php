@@ -43,7 +43,7 @@ class ResultListDataConverter
      * @param string $email
      * @return string
      */
-    private function halfEmailHide(string $email): string
+    public function halfEmailHide(string $email): string
     {
         return preg_replace_callback(
             '/([^@]{2,})([^@]*)@/',
