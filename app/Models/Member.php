@@ -10,14 +10,14 @@ class Member extends Model
 {
     use HasFactory;
 
-    public bool $timestamps = false;
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected array $fillable = [
+    protected $fillable = [
         'email'
     ];
 

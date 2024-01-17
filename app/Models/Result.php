@@ -13,14 +13,14 @@ class Result extends Model
 {
     use HasFactory;
 
-    public bool $timestamps = false;
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected array $fillable = [
+    protected $fillable = [
         'member_id',
         'milliseconds'
     ];
