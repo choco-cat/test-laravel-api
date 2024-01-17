@@ -21,11 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Results routes
 Route::prefix('results')->middleware('api')
     ->group(function () {
-    Route::get('/{email?}', 'ResultApiController@top')
-        ->middleware('api')
-        ->name('api.result.top')
-        ->where('email', '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}');
+        Route::get('/{email?}', 'ResultApiController@top')
+            ->name('api.result.top')
+            ->where('email', '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}');
 
-    Route::post('/', 'ResultApiController@store')
-        ->name('api.result.store');
-});
+        Route::post('/save', 'ResultApiController@store')
+            ->name('api.result.store')
+            ->middleware('check.post.params');
+    });
