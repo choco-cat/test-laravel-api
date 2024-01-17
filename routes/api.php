@@ -17,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Results routes
+Route::prefix('results')->middleware('api')
+    ->group(function () {
+    Route::get('/{email?}', 'ResultApiController@top')
+        ->middleware('api')
+        ->name('api.result.top')
+        ->where('email', '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}');
+
+    Route::post('/', 'ResultApiController@store')
+        ->name('api.result.store');
+});
