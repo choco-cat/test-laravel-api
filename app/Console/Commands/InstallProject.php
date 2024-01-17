@@ -31,13 +31,26 @@ class InstallProject extends Command
         $this->info('Generate key');
         Artisan::call('key:generate');
 
+        Artisan::call('storage:link');
+
+        $frameworkDirectory = storage_path('framework');
+        if (!file_exists($frameworkDirectory)) {
+            mkdir($frameworkDirectory, 0755, true);
+        }
+
+        $subdirectories = ['sessions', 'cache', 'views'];
+        foreach ($subdirectories as $subdirectory) {
+            $subdirectoryPath = $frameworkDirectory . '/' . $subdirectory;
+            if (!file_exists($subdirectoryPath)) {
+                mkdir($subdirectoryPath, 0755, true);
+            }
+        }
+
         $this->info('Run migrations');
         Artisan::call('migrate');
 
         $this->info('Run seeders');
         Artisan::call('db:seed');
-
-        Artisan::call('storage:link');
 
         $this->info('Generate Api documentation');
         Artisan::call('l5-swagger:generate');
