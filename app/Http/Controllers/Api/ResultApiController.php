@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Adapters\ResultListDataConverter;
+use App\Models\Member;
 use App\Models\Result;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,5 +33,23 @@ class ResultApiController extends Controller
         }
 
         return response()->json($data);
+    }
+
+    /**
+     * Store a newly created result in storage.
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $milliseconds = $request->get('milliseconds');
+        $email = $request->get('email');
+
+        $result = new Result(['milliseconds' => $milliseconds]);
+        $result->save();
+
+        if ($email) {
+            Member::updateOrCreate(['email' => $email], ['email' => $email])->results()->save($result);
+        }
+
+        return response()->json(['status' => 'OK']);
     }
 }

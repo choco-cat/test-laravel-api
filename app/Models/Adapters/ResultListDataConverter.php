@@ -16,24 +16,23 @@ class ResultListDataConverter
     public function convert(Collection|Model $data): Collection
     {
         if ($data instanceof Model) {
-            return collect([$this->mapResultsCollection($data, 0)]);
+            return collect([$this->mapResultsCollection($data)]);
         }
 
-        return $data->map(fn($item, $key) => $this->mapResultsCollection($item, $key));
+        return $data->map(fn($item, $key) => $this->mapResultsCollection($item));
     }
 
     /**
      * Callback for mapping Results Collection
      *
      * @param $item
-     * @param $key
      * @return array
      */
-    private function mapResultsCollection($item, $key): array
+    private function mapResultsCollection($item): array
     {
         return [
             'email' => $this->halfEmailHide($item->member->email),
-            'place' => $key + 1,
+            'place' => $item->place,
             'milliseconds' => $item->milliseconds,
         ];
     }
