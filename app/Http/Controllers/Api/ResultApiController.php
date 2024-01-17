@@ -14,7 +14,21 @@ class ResultApiController extends Controller
     const COUNT_TOP_RESULTS = 10;
 
     /**
-     * Display a top listing of the results.
+     * @OA\Get(
+     *      path="/api/results",
+     *      summary="Get top results",
+     *      description="Display a top listing of the results.",
+     *      @OA\Parameter(
+     *          name="email",
+     *          in="query",
+     *          description="User email (optional)",
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     * )
      */
     public function top(Request $request): JsonResponse
     {
@@ -36,7 +50,23 @@ class ResultApiController extends Controller
     }
 
     /**
-     * Store a newly created result in storage.
+     * @OA\Post(
+     *      path="/api/results/save",
+     *      summary="Store a new result",
+     *      description="Store a newly created result in storage.",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"milliseconds"},
+     *              @OA\Property(property="milliseconds", type="integer", example=100),
+     *              @OA\Property(property="email", type="string", example="user@example.com"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     * )
      */
     public function store(Request $request): JsonResponse
     {
