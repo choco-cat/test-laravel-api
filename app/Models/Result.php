@@ -37,14 +37,15 @@ class Result extends Model
 
     /**
      * Get members top list
-     * @param int $count
+     * @param int|null $count
      * @return Collection
      */
-    public static function getTop(int $count): Collection
+    public static function getTop(?int $count = null): Collection
     {
         return self::queryWithBestMembersResults()
-            ->take($count)
-            ->get();
+            ->when($count !== null, fn($query) => $query->take($count))
+            ->get()
+            ->map(fn($result, $index) => tap($result, fn($result) => $result->place = $index + 1));
     }
 
     /**
@@ -55,9 +56,7 @@ class Result extends Model
      */
     public static function getUserResult(string $email): Model|null
     {
-        return self::queryWithBestMembersResults()
-            ->whereRelation('member', 'email', $email)
-            ->first();
+        return self::getTop()->first(fn($model) => $model->member->email === $email);
     }
 
     /**
