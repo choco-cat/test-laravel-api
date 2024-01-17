@@ -8,22 +8,28 @@
 </p>
 
 ## About Test Api App
+The app uses Docker to work with MySQL on standard port 3306, the port must be free to work.
 1. Api Documentation - http://YOUR_DOMAIN/api/documentation
 1. Regenerate documentation:  Run `php artisan l5-swagger:generate`
 1. Run tests: `php artisan test`
+
+## Stack
+* php 8
+* MySql 8
+* Laravel 10
+* Docker
 
 ## Installation
 0. Remember: If you want to do something, but You don't know how can you do it, please ask your colleagues.
 1. Clone this project into your local workspace
 1. Duplicate the `.env.example` file in the project root and set new name `.env`
-1. In your `.env` file insert your database credentials.
-    1. In this project we use only mysql.
-    2. **You should create database by yourself.**
 1. In your `.env` file change the following settings:
     1. APP_URL to your local host name.
 
 1. Open your favorite console in the project root and run `composer install` or `composer i` to install all php dependencies.
 1. Run `npm install` or `npm i` if you are going to change frontend structure
+1. Run docker demon
+1. Run `docker-compose up -d`
 1. Run `php artisan project:install` to install project.
 1. Congratulation! You are the best!
 
