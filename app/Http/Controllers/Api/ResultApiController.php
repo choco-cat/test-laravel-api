@@ -41,9 +41,8 @@ class ResultApiController extends Controller
             'top' => $topData
         ];
 
-        if ($email && $selfData = Result::getUserResult($email)) {
-            $selfData = $converter->convert($selfData);
-            $data['self'] = $selfData[0];
+        if ($selfData = $this->getUserData($email)) {
+            $data['self'] = $selfData;
         }
 
         return response()->json(['data' => $data]);
@@ -81,5 +80,30 @@ class ResultApiController extends Controller
         }
 
         return response()->json(['status' => 'OK']);
+    }
+
+    /**
+     * get self data
+     *
+     * @param string|null $email
+     * @return array
+     */
+    private function getUserData(?string $email): array
+    {
+        if (!$email) {
+            return [];
+        }
+
+        if (!$currentUser = Member::getUser($email)) {
+            return [];
+        }
+
+        if (!$selfData = $currentUser->getUserResult()) {
+            return [];
+        }
+
+        $converter = new ResultListDataConverter();
+        $selfData = $converter->convert($selfData);
+        return $selfData->first();
     }
 }

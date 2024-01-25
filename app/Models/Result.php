@@ -40,7 +40,7 @@ class Result extends Model
      * @param int|null $count
      * @return Collection
      */
-    public static function getTop(?int $count = null): Collection
+    public static function getTop(?int $count): Collection
     {
         return self::queryWithBestMembersResults()
             ->when($count !== null, fn($query) => $query->take($count))
@@ -49,26 +49,17 @@ class Result extends Model
     }
 
     /**
-     * Get best member result
-     *
-     * @param string $email
-     * @return Model|null
-     */
-    public static function getUserResult(string $email): Model|null
-    {
-        return self::getTop()->first(fn($model) => $model->member->email === $email);
-    }
-
-    /**
      * Adds members fields and grouping by members to the query
      *
+     * @param string|null $email
      * @return Builder
      */
-    private static function queryWithBestMembersResults(): Builder
+    public static function queryWithBestMembersResults(string $email = null): Builder
     {
         return self::with('member')
             ->select('member_id', DB::raw('MIN(milliseconds) as milliseconds'))
             ->whereNotNull('member_id')
+            ->when($email !== null, fn($query) => $query->whereHas('member', fn($subquery) => $subquery->where('email', $email)))
             ->groupBy('member_id')
             ->orderBy('milliseconds');
     }
